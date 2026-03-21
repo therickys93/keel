@@ -122,7 +122,7 @@ func Run(k8sImplementer kubernetes.Implementer, approvalsManager approvals.Manag
 		if configured {
 			bm.SetupBot(botName, bot)
 		} else {
-			log.Debugf("bot.Run(): bot [%s] not configured, skipping", botName)
+			log.Debugf("bot.Run(): bot [%s] not enabled, skipping", botName)
 		}
 	}
 }
