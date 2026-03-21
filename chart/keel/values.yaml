@@ -138,6 +138,8 @@ discord:
 shoutrrr:
   enabled: false
   url: ""
+  # Optional: keel UI URL for click-through on notifications
+  uiURL: ""
 
 # Mail notifications
 mail:

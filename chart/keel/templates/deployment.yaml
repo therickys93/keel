@@ -180,6 +180,10 @@ spec:
             - name: MAIL_FROM
               value: "{{ .Values.mail.from }}"
 {{- end }}
+{{- if and .Values.shoutrrr .Values.shoutrrr.uiURL }}
+            - name: KEEL_UI_URL
+              value: "{{ .Values.shoutrrr.uiURL }}"
+{{- end }}
             - name: NOTIFICATION_LEVEL
               value: "{{ .Values.notificationLevel }}"
 {{- if .Values.debug }}
