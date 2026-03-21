@@ -2,7 +2,7 @@ name: Nightly Pre-Release
 
 on:
   schedule:
-    - cron: "35 9 * * *"
+    - cron: "0 3 * * *"
   workflow_dispatch:
 
 jobs:
