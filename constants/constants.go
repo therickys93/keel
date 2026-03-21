@@ -38,6 +38,9 @@ const (
 	// Discord webhook url, see https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
 	EnvDiscordWebhookUrl = "DISCORD_WEBHOOK_URL"
 
+	// Shoutrrr notification URLs, see https://containrrr.dev/shoutrrr/
+	EnvShoutrrrUrl = "SHOUTRRR_URL"
+
 	// Mail notification settings
 	EnvMailTo         = "MAIL_TO"
 	EnvMailFrom       = "MAIL_FROM"
