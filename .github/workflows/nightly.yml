@@ -135,12 +135,15 @@ jobs:
         env:
           DATE: ${{ needs.changes.outputs.date }}
 
-      - name: Checkout for tagging
-        uses: actions/checkout@v4
-
       - name: Tag commit
-        run: |
-          git tag "nightly-$DATE"
-          git push origin "nightly-$DATE"
+        uses: actions/github-script@v7
         env:
           DATE: ${{ needs.changes.outputs.date }}
+        with:
+          script: |
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/nightly-${process.env.DATE}`,
+              sha: context.sha,
+            })
