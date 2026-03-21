@@ -52,6 +52,36 @@ func (s *sender) Configure(config *notification.Config) (bool, error) {
 	return true, nil
 }
 
+func levelPriority(l types.Level) string {
+	switch l {
+	case types.LevelFatal:
+		return "5"
+	case types.LevelError:
+		return "4"
+	case types.LevelWarn:
+		return "3"
+	case types.LevelSuccess:
+		return "2"
+	default:
+		return "1"
+	}
+}
+
+func levelTags(l types.Level) string {
+	switch l {
+	case types.LevelFatal:
+		return "rotating_light"
+	case types.LevelError:
+		return "x"
+	case types.LevelWarn:
+		return "warning"
+	case types.LevelSuccess:
+		return "rocket"
+	default:
+		return "information_source"
+	}
+}
+
 func (s *sender) Send(event types.EventNotification) error {
 	title := fmt.Sprintf("[%s] %s", strings.ToUpper(event.Level.String()), event.Name)
 	body := event.Message
@@ -59,7 +89,12 @@ func (s *sender) Send(event types.EventNotification) error {
 		body += "\n" + event.Identifier
 	}
 
-	params := shoutrrrTypes.Params{"title": title}
+	params := shoutrrrTypes.Params{
+		"title":    title,
+		"priority": levelPriority(event.Level),
+		"tags":     levelTags(event.Level),
+		"icon":     constants.KeelLogoURL,
+	}
 	errs := s.router.Send(body, &params)
 
 	var failed []string
