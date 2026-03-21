@@ -41,9 +41,26 @@ jobs:
         id: tag
         run: echo "date=$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
 
+  test:
+    name: Unit Tests
+    needs: changes
+    if: needs.changes.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+
+      - name: Run tests
+        run: go test ./... -cover
+
   build:
     name: Build ${{ matrix.platform }}
-    needs: changes
+    needs: [changes, test]
     if: needs.changes.outputs.has_changes == 'true'
     runs-on: ${{ matrix.runner }}
     permissions:
@@ -141,9 +158,24 @@ jobs:
           DATE: ${{ needs.changes.outputs.date }}
         with:
           script: |
-            await github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: `refs/tags/nightly-${process.env.DATE}`,
-              sha: context.sha,
-            })
+            const tag = `refs/tags/nightly-${process.env.DATE}`;
+            try {
+              await github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: tag,
+                sha: context.sha,
+              });
+            } catch (e) {
+              if (e.status === 422) {
+                await github.rest.git.updateRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: tag.replace('refs/', ''),
+                  sha: context.sha,
+                  force: true,
+                });
+              } else {
+                throw e;
+              }
+            }
