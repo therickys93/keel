@@ -17,6 +17,7 @@ import (
 
 type sender struct {
 	router *router.ServiceRouter
+	uiURL  string
 }
 
 func init() {
@@ -44,6 +45,7 @@ func (s *sender) Configure(config *notification.Config) (bool, error) {
 		return false, fmt.Errorf("shoutrrr: %w", err)
 	}
 	s.router = r
+	s.uiURL = os.Getenv("KEEL_UI_URL")
 
 	log.WithFields(log.Fields{
 		"name":  "shoutrrr",
@@ -95,6 +97,11 @@ func (s *sender) Send(event types.EventNotification) error {
 		"tags":     levelTags(event.Level),
 		"icon":     constants.KeelLogoURL,
 	}
+
+	if s.uiURL != "" {
+		params["click"] = s.uiURL
+	}
+
 	errs := s.router.Send(body, &params)
 
 	var failed []string
