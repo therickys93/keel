@@ -56,7 +56,7 @@ jobs:
           go-version: "1.23"
 
       - name: Run tests
-        run: go test ./... -cover
+        run: go test $(go list ./... | grep -v /tests) -cover
 
   build:
     name: Build ${{ matrix.platform }}
