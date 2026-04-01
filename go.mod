@@ -67,6 +67,7 @@ require (
 require (
 	cloud.google.com/go/storage v1.47.0
 	github.com/alecthomas/kingpin/v2 v2.4.0
+	github.com/containrrr/shoutrrr v0.8.0
 	github.com/distribution/distribution/v3 v3.0.0-20230722181636-7b502560cad4
 	github.com/golang-jwt/jwt/v4 v4.5.1
 	golang.org/x/oauth2 v0.24.0

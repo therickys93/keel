@@ -132,6 +132,15 @@ discord:
   enabled: false
   webhookUrl: ""
 
+# Shoutrrr notifications — supports 15+ services via URL config
+# See https://containrrr.dev/shoutrrr/ for URL formats
+# Multiple URLs can be comma-separated
+shoutrrr:
+  enabled: false
+  url: ""
+  # Optional: keel UI URL for click-through on notifications
+  uiURL: ""
+
 # Mail notifications
 mail:
   enabled: false
