@@ -93,9 +93,9 @@ func (s *sender) Send(event types.EventNotification) error {
 
 	params := shoutrrrTypes.Params{
 		"title":    title,
-		"priority": levelPriority(event.Level),
-		"tags":     levelTags(event.Level),
-		"icon":     constants.KeelLogoURL,
+		// "priority": levelPriority(event.Level),
+		// "tags":     levelTags(event.Level),
+		// "icon":     constants.KeelLogoURL,
 	}
 
 	if s.uiURL != "" {
