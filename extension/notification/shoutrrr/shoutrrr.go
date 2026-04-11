@@ -108,10 +108,11 @@ func (s *sender) Send(event types.EventNotification) error {
 	// 	body += "\n" + event.Identifier
 	// }
 
-	emoji := levelEmoji(event.Level)
-	title := "🔔 *Keel Notification*"
-	// body := fmt.Sprintf("%#v", event)
-	body := fmt.Sprintf(
+    emoji := levelEmoji(event.Level)
+    title := ""
+    // body := fmt.Sprintf("%#v", event)
+    body := fmt.Sprintf(
+        "🔔 *Keel Notification*\n\n"+
         "%s *%s*\n\n"+
         "🔑 *Identificatore:* `%s`\n"+
         "💬 *Messaggio:* %s\n",
