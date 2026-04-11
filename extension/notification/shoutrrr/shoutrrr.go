@@ -113,8 +113,8 @@ func (s *sender) Send(event types.EventNotification) error {
 	// body := fmt.Sprintf("%#v", event)
 	body := fmt.Sprintf(
         "%s *%s*\n\n"+
-            "🔑 *Identificatore:* `%s`\n"+
-            "💬 *Messaggio:* %s\n"+
+        "🔑 *Identificatore:* `%s`\n"+
+        "💬 *Messaggio:* %s\n",
         emoji,
         event.Name,
         event.Identifier,
