@@ -84,13 +84,42 @@ func levelTags(l types.Level) string {
 	}
 }
 
+func levelEmoji(l types.Level) string {
+    switch l {
+    case types.LevelSuccess:
+        return "✅"
+    case types.LevelWarn:
+        return "⚠️"
+    case types.LevelError:
+        return "❌"
+    case types.LevelFatal:
+        return "❌"
+    default:
+        return "ℹ️"
+    }
+}
+
+
 func (s *sender) Send(event types.EventNotification) error {
-	title := fmt.Sprintf("[%s] %s", strings.ToUpper(event.Level.String()), event.Name)
+	// original message.
+	// title := fmt.Sprintf("[%s] %s", strings.ToUpper(event.Level.String()), event.Name)
 	// body := event.Message
-	body := fmt.Sprintf("%#v", event)
-	if event.Identifier != "" {
-		body += "\n" + event.Identifier
-	}
+	// if event.Identifier != "" {
+	// 	body += "\n" + event.Identifier
+	// }
+
+	emoji := levelEmoji(event.Level)
+	title := "🔔 *Keel Notification*"
+	// body := fmt.Sprintf("%#v", event)
+	body := fmt.Sprintf(
+        "%s *%s*\n\n"+
+            "🔑 *Identificatore:* `%s`\n"+
+            "💬 *Messaggio:* %s\n"+
+        emoji,
+        event.Name,
+        event.Identifier,
+        event.Message,
+    )
 
 	params := shoutrrrTypes.Params{
 		"title":    title,
