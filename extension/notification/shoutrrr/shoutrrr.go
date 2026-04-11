@@ -86,7 +86,8 @@ func levelTags(l types.Level) string {
 
 func (s *sender) Send(event types.EventNotification) error {
 	title := fmt.Sprintf("[%s] %s", strings.ToUpper(event.Level.String()), event.Name)
-	body := event.Message
+	// body := event.Message
+	body := fmt.Sprintf("%#v", event)
 	if event.Identifier != "" {
 		body += "\n" + event.Identifier
 	}
