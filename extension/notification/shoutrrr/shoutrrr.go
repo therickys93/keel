@@ -124,7 +124,8 @@ func (s *sender) Send(event types.EventNotification) error {
     )
 	*/
 	body := fmt.Sprintf(
-        "*Keel Notification:* %s",
+        "*Keel Notification on %s.*\n%s",
+		event.Identifier,
         event.Message,
     )
 
