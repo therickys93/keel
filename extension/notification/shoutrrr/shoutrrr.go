@@ -108,7 +108,7 @@ func (s *sender) Send(event types.EventNotification) error {
 	// 	body += "\n" + event.Identifier
 	// }
 
-    emoji := levelEmoji(event.Level)
+    // emoji := levelEmoji(event.Level)
     title := ""
     // body := fmt.Sprintf("%#v", event)
 	/*
