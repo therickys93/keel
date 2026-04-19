@@ -99,6 +99,12 @@ func levelEmoji(l types.Level) string {
     }
 }
 
+func getEnv(key, defaultValue string) string {
+    if value := os.Getenv(key); value != "" {
+        return value
+    }
+    return defaultValue
+}
 
 func (s *sender) Send(event types.EventNotification) error {
 	// original message.
@@ -124,8 +130,9 @@ func (s *sender) Send(event types.EventNotification) error {
     )
 	*/
 	body := fmt.Sprintf(
-        "*Keel Notification on %s.*\n%s",
-		event.Identifier,
+        "*Keel updates on cluster %s.*\n%s",
+		// event.Identifier,
+		getEnv("CLUSTER_NAME", "keel")
         event.Message,
     )
 
