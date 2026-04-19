@@ -132,7 +132,7 @@ func (s *sender) Send(event types.EventNotification) error {
 	body := fmt.Sprintf(
         "*Keel updates on cluster %s.*\n%s",
 		// event.Identifier,
-		getEnv("CLUSTER_NAME", "keel")
+		getEnv("CLUSTER_NAME", "keel"),
         event.Message,
     )
 
